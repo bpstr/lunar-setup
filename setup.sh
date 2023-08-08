@@ -5,7 +5,7 @@ BUILD=202112181
 PASS=$(openssl rand -base64 32|sha256sum|base64|head -c 32| tr '[:upper:]' '[:lower:]')
 DBPASS=$(openssl rand -base64 24|sha256sum|base64|head -c 32| tr '[:upper:]' '[:lower:]')
 SERVERID=$(openssl rand -base64 12|sha256sum|base64|head -c 32| tr '[:upper:]' '[:lower:]')
-REPO=lunarphp/lunar
+REPO=antlify/lunar-store-starter
 if [ -z "$1" ];
     BRANCH=latest
 then
@@ -180,7 +180,7 @@ sleep 1s
 sudo pam-auth-update --package
 sudo mount -o remount,rw /
 sudo chmod 640 /etc/shadow
-sudo useradd -m -s /bin/bash cipi
+sudo useradd -m -s /bin/bash lunar
 echo "lunar:$PASS"|sudo chpasswd
 sudo usermod -aG sudo lunar
 
@@ -263,7 +263,7 @@ sudo apt-get -y install php8.1-imagick
 sudo apt-get -y install php8.1-fileinfo
 sudo apt-get -y install php8.1-imap
 sudo apt-get -y install php8.1-cli
-PHPINI=/etc/php/8.1/fpm/conf.d/cipi.ini
+PHPINI=/etc/php/8.1/fpm/conf.d/lunar.ini
 sudo touch $PHPINI
 sudo cat > "$PHPINI" <<EOF
 memory_limit = 256M
@@ -295,7 +295,7 @@ sudo apt-get -y install php8.2-imagick
 sudo apt-get -y install php8.2-fileinfo
 sudo apt-get -y install php8.2-imap
 sudo apt-get -y install php8.2-cli
-PHPINI=/etc/php/8.2/fpm/conf.d/cipi.ini
+PHPINI=/etc/php/8.2/fpm/conf.d/lunar.ini
 sudo touch $PHPINI
 sudo cat > "$PHPINI" <<EOF
 memory_limit = 256M
@@ -557,7 +557,7 @@ sudo chmod -R o+w /var/www/html/storage
 sudo chmod -R 775 /var/www/html/storage
 sudo chmod -R o+w /var/www/html/bootstrap/cache
 sudo chmod -R 775 /var/www/html/bootstrap/cache
-sudo chown -R www-data:cipi /var/www/html
+sudo chown -R www-data:lunar /var/www/html
 
 
 
@@ -629,9 +629,9 @@ echo "***********************************************************"
 echo "                    SETUP COMPLETE"
 echo "***********************************************************"
 echo ""
-echo " SSH root user: cipi"
+echo " SSH root user: lunar"
 echo " SSH root pass: $PASS"
-echo " MySQL root user: cipi"
+echo " MySQL root user: lunar"
 echo " MySQL root pass: $DBPASS"
 echo ""
 echo " To manage your server visit: http://$IP"
